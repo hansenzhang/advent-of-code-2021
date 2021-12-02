@@ -1,10 +1,12 @@
 defmodule AdventOfCode.Day02 do
   def part1(args) do
-    args
+    result = args
     |> String.trim()
     |> String.split("\n")
     |> Enum.map(fn x -> String.split(x, " ") |> List.to_tuple() end)
     |> reduce_to_commands(%{"forward" => 0, "down" => 0, "up" => 0})
+
+    result["forward"] * (result["down"] - result["up"])
   end
 
   @spec reduce_to_commands(nonempty_maybe_improper_list, map) :: any
@@ -20,11 +22,13 @@ defmodule AdventOfCode.Day02 do
   end
 
   def part2(args) do
-    args
+    result = args
     |> String.trim()
     |> String.split("\n")
     |> Enum.map(fn x -> String.split(x, " ") |> List.to_tuple() end)
     |> reduce_aim_commands(%{"forward" => 0, "down" => 0, "up" => 0, "aim" => 0})
+
+    result["forward"] * result["down"]
   end
 
   def reduce_aim_commands([head | tail], commands) do
