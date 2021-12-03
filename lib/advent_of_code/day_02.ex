@@ -8,8 +8,7 @@ defmodule AdventOfCode.Day02 do
       fn (head, acc) ->
         command = elem(head, 0)
         value = String.to_integer(elem(head, 1))
-        prevValue = acc[command]
-        Map.put(acc, command, value + prevValue)
+        %{acc | command => value + acc[command]}
       end
     )
 
@@ -26,12 +25,11 @@ defmodule AdventOfCode.Day02 do
         command = elem(head, 0)
         value = String.to_integer(elem(head, 1))
         aim = acc["aim"]
-        prevValue = acc[command]
         depth = acc["down"]
         case command do
-          "down"    -> Map.put(acc, "aim", value + aim)
+          "down"    -> Map.put(acc, "aim", aim + value)
           "up"      -> Map.put(acc, "aim", aim - value)
-          "forward" -> %{acc | "down" => aim * value + depth , "forward" => value + prevValue}
+          "forward" -> %{acc | "down" => aim * value + depth , "forward" => value + acc[command]}
         end
       end)
 
