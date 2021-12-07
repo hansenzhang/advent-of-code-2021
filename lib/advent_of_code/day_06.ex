@@ -6,14 +6,9 @@ defmodule AdventOfCode.Day06 do
       |> String.split(",")
       |> Enum.map(&String.to_integer/1)
 
-    IO.inspect(fishies)
-
-    days =
-      for x <- 1..80,
-          do: x
-
-    days
-    |> Enum.reduce(fishies, &iterate/2)
+    1..80
+    |>
+    Enum.reduce(fishies, &iterate/2)
     |> Enum.count()
   end
 
@@ -30,11 +25,7 @@ defmodule AdventOfCode.Day06 do
 
     fishies = Map.merge(empty, fishies)
 
-    days =
-      for x <- 1..256,
-          do: x
-
-    days
+    1..256
     |> Enum.reduce(fishies, &iterate_better/2)
     |> Map.values()
     |> Enum.sum()
