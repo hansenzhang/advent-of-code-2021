@@ -48,21 +48,21 @@ defmodule AdventOfCode.Day08 do
       7 => Enum.filter(patterns, fn x -> String.length(x) == 3 end) |> hd |> String.split("", trim: true) |> MapSet.new()
     }
     masks
-    |> Map.put(6, MapSet.difference(masks[4], masks[7]))
-    |> Map.put(5, MapSet.difference(masks[4], masks[1]))
+    |> Map.put(:masksix, MapSet.difference(masks[4], masks[7]))
+    |> Map.put(:maskfive, MapSet.difference(masks[4], masks[1]))
   end
 
   defp filter_length_six(signal_map, masks) do
     cond do
       MapSet.subset?(masks[4], signal_map) -> "9"
-      MapSet.subset?(masks[6], signal_map) -> "6"
+      MapSet.subset?(masks[:masksix], signal_map) -> "6"
       true -> "0"
     end
   end
 
   defp filter_length_five(signal_map, masks) do
     cond do
-      MapSet.subset?(masks[5], signal_map) -> "5"
+      MapSet.subset?(masks[:maskfive], signal_map) -> "5"
       MapSet.subset?(masks[7], signal_map) -> "3"
       true -> "2"
     end
